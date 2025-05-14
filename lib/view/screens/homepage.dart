@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task/core/utils/configsize/configsize.dart';
-import 'package:task/core/utils/configsize/spacewidget.dart';
 import 'package:task/view/cubit/product_cubit.dart';
 import 'package:task/view/cubit/product_state.dart';
 import 'package:task/view/screens/product_detials.dart';
