@@ -18,7 +18,7 @@ class ProductDetailScreen extends StatelessWidget {
       appBar: AppBar(
           backgroundColor: Color.fromARGB(255, 63, 61, 61),
           title: Text(
-            product.title,
+            product.title ?? "Unavailable",
             style: TextStyle(
               color: Colors.white,
             ),
@@ -30,33 +30,48 @@ class ProductDetailScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.network(product.images.first,
-                  height: SizeConfig.defaultSize! * 25),
+              product.images.isNotEmpty
+                  ? SizedBox(
+                      height: SizeConfig.defaultSize! * 25,
+                      child: ListView.separated(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: product.images.length,
+                        separatorBuilder: (_, __) => const SizedBox(width: 10),
+                        itemBuilder: (context, index) {
+                          return Image.network(
+                            product.images[index],
+                            fit: BoxFit.cover,
+                            width: SizeConfig.defaultSize! * 25,
+                          );
+                        },
+                      ),
+                    )
+                  : const SizedBox(),
               VerticalSpace(SizeConfig.defaultSize! * .3),
               Text(
-                product.title,
+                product.title ?? "Unavailable",
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
               ),
               VerticalSpace(SizeConfig.defaultSize! * .1),
               Text(
-                product.description,
+                product.description ?? "",
                 style: TextStyle(fontSize: 14),
               ),
               VerticalSpace(SizeConfig.defaultSize! * .1),
               Text(
-                "Price: \$${product.price}",
+                "Price: \$${product.price ?? ''}",
                 style: TextStyle(fontSize: 14),
               ),
               VerticalSpace(SizeConfig.defaultSize! * .1),
               Text(
-                "Discount Percentage: ${product.discountPercentage}%",
+                "Discount Percentage: ${product.discountPercentage ?? ''}%",
                 style: TextStyle(fontSize: 14),
               ),
               VerticalSpace(SizeConfig.defaultSize! * .1),
               Text(
-                "Rating: ${product.rating}",
+                "Rating: ${product.rating ?? ''}",
                 style: TextStyle(fontSize: 14),
               ),
             ],
